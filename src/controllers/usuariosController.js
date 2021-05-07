@@ -1,9 +1,10 @@
 const connection = require('../models/db');
+const SQL = require('sql-template-strings');
 
 const allUsers = (req, res) => {
     connection.query(
-        'SELECT * FROM `usuarios`',
-        function (err, results, fields) {
+        SQL`SELECT * FROM usuarios`,
+        (err, results, fields) => {
             if (!results) {
                 res.send(err)
             } else {
@@ -16,10 +17,10 @@ const allUsers = (req, res) => {
 const uniqueUser = (req, res) => {
     const { id } = req.params;
     connection.query(
-        "SELECT * FROM usuarios WHERE nr_paciente = '" + id + "'",
-        function (err, results, fields) {
+        SQL`SELECT * FROM usuarios WHW=ERE nr_paciente = ${id}`,
+        (err, results, fields) => {
             if (!results) {
-                res.send(err)
+                res.json(err)
             } else {
                 res.json(results)
             }
@@ -28,22 +29,24 @@ const uniqueUser = (req, res) => {
 }
 
 const sendForm = (req, res) => {
+    const { nome, idade, base64form } = req.body;
     const { id } = req.params;
 
-
-
-    /*
-     enviar para o bd a imagem
-     do forumario preenchido em
-     base64, inserindo no campo
-     correspondente ao usuario
-     */
-
-    console.log(req.body);
-
-    res.send(`formulario enviado para o banco de dados. id do usuario ${id}`);
+    connection.query(
+        SQL`INSERT
+            INTO    usuarios
+                    (nr_paciente, nome, idade, formbase64)
+            VALUES  (${id}, ${nome}, ${idade}, ${base64form})`,
+        (err, results, fields) => {
+            if (!results) {
+                console.log(err);
+                res.json(err);
+            } else {
+                res.json(results);
+            }
+        }
+    )
 }
-
 
 module.exports = {
     allUsers,
