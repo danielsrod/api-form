@@ -17,7 +17,7 @@ const allUsers = (req, res) => {
 const uniqueUser = (req, res) => {
     const { id } = req.params;
     connection.query(
-        SQL`SELECT * FROM usuarios WHERE nr_paciente = ${id}`,
+        SQL`SELECT * FROM usuarios WHERE nr_atendimento = ${id}`,
         (err, results, fields) => {
             if (!results) {
                 res.json(err)
@@ -28,15 +28,14 @@ const uniqueUser = (req, res) => {
     )
 }
 
-const sendUserData = (req, res) => {
+const createUser = (req, res) => {
     const { nome, idade, base64form } = req.body;
-    const { id } = req.params;
 
     connection.query(
         SQL`INSERT
             INTO    usuarios
-                    (nr_paciente, nome, idade, formbase64)
-            VALUES  (${id}, ${nome}, ${idade}, ${base64form})`,
+                    (nome, idade, base64image)
+            VALUES  (${nome}, ${idade}, ${base64form})`,
         (err, results, fields) => {
             if (!results) {
                 res.json([err, fields]);
@@ -52,7 +51,7 @@ const sendOnlyForm = (req, res) => {
     const { id } = req.params;
 
     connection.query(
-        SQL`UPDATE usuarios SET formbase64 = ${base64form} WHERE nr_paciente = ${id}`,
+        SQL`UPDATE usuarios SET base64image = ${base64form} WHERE nr_atendimento = ${id}`,
         (err, results, fields) => {
             if (!results) {
                 res.json([err, fields]);
@@ -66,7 +65,7 @@ const sendOnlyForm = (req, res) => {
 module.exports = {
     allUsers,
     uniqueUser,
-    sendUserData,
+    createUser,
     sendOnlyForm,
 
 };
