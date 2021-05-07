@@ -17,7 +17,7 @@ const allUsers = (req, res) => {
 const uniqueUser = (req, res) => {
     const { id } = req.params;
     connection.query(
-        SQL`SELECT * FROM usuarios WHW=ERE nr_paciente = ${id}`,
+        SQL`SELECT * FROM usuarios WHERE nr_paciente = ${id}`,
         (err, results, fields) => {
             if (!results) {
                 res.json(err)
