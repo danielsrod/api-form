@@ -1,5 +1,11 @@
 const { Router } = require('express');
-const {allUsers, uniqueUser, sendForm} = require('../controllers/usuariosController');
+const { 
+    allUsers, 
+    uniqueUser, 
+    sendUserData, 
+    sendOnlyForm,
+    
+ } = require('../controllers/usuariosController');
 
 const router = Router();
 
@@ -7,6 +13,8 @@ router.get('/', allUsers);
 
 router.get('/:id', uniqueUser);
 
-router.post('/:id', sendForm)
+router.post('/:id', sendUserData);
+
+router.patch('/:id', sendOnlyForm);
 
 module.exports = router;

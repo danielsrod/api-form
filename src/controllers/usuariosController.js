@@ -28,7 +28,7 @@ const uniqueUser = (req, res) => {
     )
 }
 
-const sendForm = (req, res) => {
+const sendUserData = (req, res) => {
     const { nome, idade, base64form } = req.body;
     const { id } = req.params;
 
@@ -39,8 +39,23 @@ const sendForm = (req, res) => {
             VALUES  (${id}, ${nome}, ${idade}, ${base64form})`,
         (err, results, fields) => {
             if (!results) {
-                console.log(err);
-                res.json(err);
+                res.json([err, fields]);
+            } else {
+                res.json(results);
+            }
+        }
+    )
+}
+
+const sendOnlyForm = (req, res) => {
+    const { base64form } = req.body;
+    const { id } = req.params;
+
+    connection.query(
+        SQL`UPDATE usuarios SET formbase64 = ${base64form} WHERE nr_paciente = ${id}`,
+        (err, results, fields) => {
+            if (!results) {
+                res.json([err, fields]);
             } else {
                 res.json(results);
             }
@@ -51,5 +66,7 @@ const sendForm = (req, res) => {
 module.exports = {
     allUsers,
     uniqueUser,
-    sendForm
+    sendUserData,
+    sendOnlyForm,
+
 };
