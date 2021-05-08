@@ -28,5 +28,5 @@ const poolPromiseOracle = oracledb.createPool(connConfig)
     })
 
 module.exports = {
-    poolPromiseOracle;
+    poolPromiseOracle
 }
