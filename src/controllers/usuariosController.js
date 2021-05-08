@@ -1,4 +1,4 @@
-const connection = require('../models/db');
+const poolPromiseOracle = require('../models/db');
 
 // const allUsers = (req, res) => {
 //     connection.query(
@@ -16,7 +16,7 @@ const connection = require('../models/db');
 const uniqueUser = async (req, res) => {
     const { id } = req.params;
 
-    const result = await connection.execute(
+    const result = await poolPromiseOracle.execute(
         `
         SELECT pessoa_fisica.nm_pessoa_fisica, pessoa_fisica.ie_sexo, pessoa_fisica.nr_cpf 
         FROM atendimento_paciente

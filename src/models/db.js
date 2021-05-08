@@ -1,14 +1,21 @@
 const oracledb = require('oracledb');
 const dotenv = require('dotenv');
 
+const {
+    TESTE_USER,
+    TESTE_SERVER,
+    TESTE_PW,
+    TESTE_DB,
+ } = process.env;
+
 dotenv.config();
 
 oracledb.outFormat = oracledb.OUT_FORMAT_OBJECT;
 
 const connConfig = {
-    user: "",
-    password: "",
-    connectionString: "",
+    user: TESTE_USER,
+    password: TESTE_PW,
+    connectionString: `${TESTE_SERVER}/${TESTE_DB}`,
     poolMin: 5,
     poolMax: 30,
     poolPingInterval: 10,
