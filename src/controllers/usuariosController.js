@@ -13,18 +13,22 @@ const connection = require('../models/db');
 //     )
 // }
 
-const uniqueUser = (req, res) => {
+const uniqueUser = async (req, res) => {
     const { id } = req.params;
-    connection.query(
-        SQL`SELECT * FROM usuarios WHERE nr_atendimento = ${id}`,
-        (err, results, fields) => {
-            if (!results) {
-                res.json(err)
-            } else {
-                res.json(results)
-            }
-        }
-    )
+
+    const result = await connection.execute(
+        `
+        SELECT pessoa_fisica.nm_pessoa_fisica, pessoa_fisica.ie_sexo, pessoa_fisica.nr_cpf 
+        FROM atendimento_paciente
+        INNER JOIN pessoa_fisica ON 
+        atendimento_paciente.cd_pessoa_fisica = pessoa_fisica.cd_pessoa_fisica
+        WHERE nr_atendimento = :id;
+        `, [id],
+    );
+
+    res.json(result)
+
+    connection.close();
 }
 
 // const sendOnlyForm = (req, res) => {
