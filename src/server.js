@@ -4,6 +4,7 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const usuariosRouter = require('./routes/usuariosRouter');
+const termosRouter = require('./routes/termosRouter');
 
 
 app.use(cors());
@@ -15,6 +16,7 @@ app.get('/', (req, res) => {
 })
 
 app.use('/api/usuarios', usuariosRouter);
+app.use('/api/termos', termosRouter);
 
 app.all('/*', (req, res) => {
     res.sendStatus(404);
