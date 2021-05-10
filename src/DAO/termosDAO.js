@@ -4,7 +4,7 @@ const conn = require('./connDAO');
 
 async function termosPadroes() {
     let sql = `
-    SELECT nr_sequencia, ds_termo, titulo
+    SELECT nr_sequencia, ds_termo, titulo, html_termo
     FROM SAMEL.termos_padroes
     `;
 
