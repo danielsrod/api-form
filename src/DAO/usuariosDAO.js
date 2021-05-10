@@ -24,5 +24,12 @@ async function dadosUsuario(nr_atendimento) {
         .finally(() => db.close());
 }
 
+async function inserirImagem(nr_Atendimento) {
+    let sql = `
+    INSERT INTO 
+    
+    `
+}
 
-module.exports = dadosUsuario;
+
+module.exports = {dadosUsuario};

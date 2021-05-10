@@ -1,4 +1,4 @@
-const dadosUsuario = require('../DAO/usuariosDAO');
+const {dadosUsuario} = require('../DAO/usuariosDAO');
 
 
 const findUser = async (req, res) => {
@@ -13,6 +13,12 @@ const findUser = async (req, res) => {
     } else {
         return res.json(resultado);
     }
+}
+
+const insertImage = async (req, res) => {
+    const { nr_atendimento } = req.params;
+
+
 }
 
 
