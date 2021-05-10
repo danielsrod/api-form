@@ -23,4 +23,4 @@ async function termosPadroes() {
 }
 
 
-module.exports = { termosPadroes };
+module.exports = termosPadroes;

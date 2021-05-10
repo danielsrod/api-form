@@ -25,4 +25,4 @@ async function dadosUsuario(nr_atendimento) {
 }
 
 
-module.exports = { dadosUsuario };
+module.exports = dadosUsuario;

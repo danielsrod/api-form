@@ -1,4 +1,4 @@
-const {dadosUsuario} = require('../DAO/usuariosDAO');
+const dadosUsuario = require('../DAO/usuariosDAO');
 
 
 const findUser = async (req, res) => {
@@ -16,4 +16,4 @@ const findUser = async (req, res) => {
 }
 
 
-module.exports = { findUser };
+module.exports = findUser;

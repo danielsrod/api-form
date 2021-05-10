@@ -1,4 +1,4 @@
-const { termosPadroes } = require('../DAO/termosDAO');
+const termosPadroes = require('../DAO/termosDAO');
 
 
 const showTerms = async (req, res) => {
