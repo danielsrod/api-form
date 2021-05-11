@@ -3,7 +3,7 @@ const conn = require('./connDAO');
 
 // Usuario filtrado pelo NR_ATENDIMENTO
 async function dadosUsuario(nr_atendimento) {
-    let sql = `
+    const sql = `
         SELECT pessoa_fisica.nm_abreviado, pessoa_fisica.ie_sexo, pessoa_fisica.nr_cpf 
         FROM atendimento_paciente
         INNER JOIN pessoa_fisica ON 
@@ -24,12 +24,41 @@ async function dadosUsuario(nr_atendimento) {
         .finally(() => db.close());
 }
 
-async function inserirImagem(nr_Atendimento) {
-    let sql = `
-    INSERT INTO 
-    
-    `
-}
+// Inserir formulario preenchido atrelado ao nr_atendimento
+async function inserirTermoAssinado(nr_atendimento, nr_seq_termo_padrao, termo_image) {
+    const sql = `
+    INSERT INTO SAMEL.termos_atendimentos
+    (NR_ATENDIMENTO, NR_SEQ_TERMO_PADRAO, TERMO_IMAGE)
+    VALUES(:nr_atendimento, :nr_seq_termo_padrao, :termo_image)
+    `;  
+
+    const db = await oracledb.getConnection();
+
+    return await db.execute(sql,
+        {
+            ":nr_atendimento": { "dir": oracledb.BIND_IN, "type": oracledb.NUMBER, "val": parseInt(nr_atendimento) },
+            ":nr_seq_termo_padrao": { "dir": oracledb.BIND_IN, "type": oracledb.NUMBER, "val": parseInt(nr_seq_termo_padrao) },
+            ":termo_image": { "dir": oracledb.BIND_IN, "type": oracledb.CLOB, "val": termo_image },
+        },
+        {
+            autoCommit: true,
+            outFormat: oracledb.OUT_FORMAT_OBJECT,
+        }
+    )
+        .then(result => {
+            console.log(result)
+            return result;
+        })
+        .catch(err => {
+            console.log('Erro ao inserir', err);
+            return null;
+        })
+        .finally(() => db.close());
+};
 
 
-module.exports = {dadosUsuario};
+module.exports = {
+    dadosUsuario,
+    inserirTermoAssinado,
+
+};

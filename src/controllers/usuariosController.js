@@ -1,4 +1,7 @@
-const {dadosUsuario} = require('../DAO/usuariosDAO');
+const {
+    dadosUsuario,
+    inserirTermoAssinado
+} = require('../DAO/usuariosDAO');
 
 
 const findUser = async (req, res) => {
@@ -15,11 +18,29 @@ const findUser = async (req, res) => {
     }
 }
 
-const insertImage = async (req, res) => {
-    const { nr_atendimento } = req.params;
+const insertTerm = async (req, res) => {
+    const {
+        nr_atendimento,
+        nr_seq_termo_padrao,
+        termo_image
+    } = req.query;
 
+    const resultado = await inserirTermoAssinado(nr_atendimento, nr_seq_termo_padrao, termo_image);
+
+    if (!resultado) {
+        return res.status(400).json({
+            "status": "fail",
+            "message": "Falha ao inserir dados preenchidos"
+        });
+    } else {
+        return res.json(resultado)
+    }
 
 }
 
 
-module.exports = findUser;
+module.exports = {
+    findUser,
+    insertTerm,
+
+};
