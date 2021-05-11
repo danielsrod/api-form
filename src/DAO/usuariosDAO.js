@@ -4,7 +4,7 @@ const conn = require('./connDAO');
 // Usuario filtrado pelo NR_ATENDIMENTO
 async function dadosUsuario(nr_atendimento) {
     const sql = `
-        SELECT pessoa_fisica.nm_abreviado, pessoa_fisica.ie_sexo, pessoa_fisica.nr_cpf 
+        SELECT pessoa_fisica.nm_abreviado, pessoa_fisica.ie_sexo, pessoa_fisica.nr_cpf
         FROM atendimento_paciente
         INNER JOIN pessoa_fisica ON 
         atendimento_paciente.cd_pessoa_fisica = pessoa_fisica.cd_pessoa_fisica
