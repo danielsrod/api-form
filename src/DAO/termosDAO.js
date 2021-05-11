@@ -3,6 +3,8 @@ const conn = require('./connDAO');
 
 
 async function termosPadroes() {
+    oracledb.fetchAsString = [oracledb.CLOB]
+
     let sql = `
     SELECT nr_sequencia, ds_termo, titulo, html_termo
     FROM SAMEL.termos_padroes
@@ -21,6 +23,5 @@ async function termosPadroes() {
         })
         .finally(() => db.close());
 }
-
 
 module.exports = termosPadroes;
