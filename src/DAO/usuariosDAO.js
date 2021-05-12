@@ -24,7 +24,7 @@ async function dadosUsuario(nr_atendimento) {
     //     atendimento_paciente.cd_pessoa_fisica = pessoa_fisica.cd_pessoa_fisica
     //     WHERE nr_atendimento = ${nr_atendimento}
     // `
-    
+
     const db = await oracledb.getConnection();
 
     return await db.execute(sql)
