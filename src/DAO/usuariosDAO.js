@@ -6,16 +6,16 @@ async function dadosUsuario(nr_atendimento) {
 
     oracledb.fetchAsString = [oracledb.CLOB]
     const sql = `
-    select 
-    replace
-        (
-        html_termo, 
-        '@nm_paciente', 
-        tasy.obter_nome_pf(b.cd_pessoa_fisica)
-        ) 
-    as html_ser_montado from SAMEL.termos_padroes a 
-    join atendimento_paciente b on 1 = 1
-    where nr_atendimento = ${nr_atendimento}
+    select
+        replace(
+            replace(
+                replace(
+                html_termo, '@nm_paciente', tasy.obter_nome_pf(b.cd_pessoa_fisica)),
+                '@sx_paciente', 'FEM'),
+                '@an_paciente', '1999')
+                as html_ser_montado from SAMEL.termos_padroes a
+                join atendimento_paciente b on 1 = 1
+                where nr_atendimento = ${nr_atendimento}
     `
     // const sql = `
     //     SELECT pessoa_fisica.nm_abreviado, pessoa_fisica.ie_sexo, pessoa_fisica.nr_cpf,
