@@ -5,6 +5,7 @@ const conn = require('./connDAO');
 async function dadosUsuario(nr_atendimento) {
 
     oracledb.fetchAsString = [oracledb.CLOB]
+    
     const sql = `
     select
         replace(
@@ -17,13 +18,6 @@ async function dadosUsuario(nr_atendimento) {
                 join atendimento_paciente b on 1 = 1
                 where nr_atendimento = ${nr_atendimento}
     `
-    // const sql = `
-    //     SELECT pessoa_fisica.nm_abreviado, pessoa_fisica.ie_sexo, pessoa_fisica.nr_cpf,
-    //     FROM atendimento_paciente
-    //     INNER JOIN pessoa_fisica ON 
-    //     atendimento_paciente.cd_pessoa_fisica = pessoa_fisica.cd_pessoa_fisica
-    //     WHERE nr_atendimento = ${nr_atendimento}
-    // `
 
     const db = await oracledb.getConnection();
 
