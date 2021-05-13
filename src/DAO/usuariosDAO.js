@@ -8,16 +8,19 @@ async function dadosUsuario(nr_atendimento) {
     
     const sql = `
     select
+    replace(
         replace(
             replace(
-                replace(
-                html_termo, '@nm_paciente', tasy.obter_nome_pf(b.cd_pessoa_fisica)),
-                '@sx_paciente', 'FEM'),
-                '@an_paciente', '1999')
-                as html_ser_montado from SAMEL.termos_padroes a
-                join atendimento_paciente b on 1 = 1
-                where nr_atendimento = ${nr_atendimento}
-    `
+            html_termo, '@nm_paciente', tasy.obter_nome_pf(b.cd_pessoa_fisica)),
+        '@cpf_paciente', tasy.obter_cpf_pessoa_fisica(b.cd_pessoa_fisica)),
+    '@an_paciente', (select dt_nascimento from atendimento_paciente join pessoa_fisica
+                    on atendimento_paciente.cd_pessoa_fisica = pessoa_fisica.cd_pessoa_fisica
+                    where nr_atendimento = ${nr_atendimento}))
+                    
+    as html_ser_montado from SAMEL.termos_padroes a
+    join atendimento_paciente b on 1 = 1
+    where nr_atendimento = ${nr_atendimento}
+    `; // Nao colocar > ; < no final da query
 
     const db = await oracledb.getConnection();
 
