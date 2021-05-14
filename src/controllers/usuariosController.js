@@ -25,6 +25,11 @@ const insertTerm = async (req, res) => {
         termo_image
     } = req.query;
 
+    if(!nr_atendimento || !nr_seq_termo_padrao || !termo_image) { return res.status(400).json({
+        "status": "fail",
+        "message": "faltam dados"
+    }) }
+
     const resultado = await inserirTermoAssinado(nr_atendimento, nr_seq_termo_padrao, termo_image);
 
     if (!resultado) {
