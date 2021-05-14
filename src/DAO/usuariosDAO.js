@@ -5,7 +5,7 @@ const conn = require('./connDAO');
 async function dadosUsuario(nr_atendimento) {
 
     oracledb.fetchAsString = [oracledb.CLOB]
-    
+
     const sql = `
     select
     replace(
@@ -18,7 +18,7 @@ async function dadosUsuario(nr_atendimento) {
     replace(
     replace(
     replace(
-    replace(html_termo
+    replace((select html_termo from SAMEL.termos_padroes where nr_sequencia = 1)
             , '@nm_paciente', tasy.obter_nome_pf(b.cd_pessoa_fisica))
             ,'@cpf_paciente', tasy.obter_cpf_pessoa_fisica(b.cd_pessoa_fisica))
             ,'@cd_pessoa_fisica', (select cd_pessoa_fisica from atendimento_paciente
@@ -33,10 +33,8 @@ async function dadosUsuario(nr_atendimento) {
             ,'\n', '')
             ,'\t', '')
             ,'\r', '')
-            
-            
-                      
-as html_formulario from SAMEL.termos_padroes a
+
+as html_form from SAMEL.termos_padroes a
 join atendimento_paciente b on 1 = 1
 where nr_atendimento = ${nr_atendimento}
     `; // Nao colocar > ; < no final da query
@@ -61,7 +59,7 @@ async function inserirTermoAssinado(nr_atendimento, nr_seq_termo_padrao, termo_i
     INSERT INTO SAMEL.termos_atendimentos
     (NR_ATENDIMENTO, NR_SEQ_TERMO_PADRAO, TERMO_IMAGE)
     VALUES(:nr_atendimento, :nr_seq_termo_padrao, :termo_image)
-    `;  
+    `;
 
     const db = await oracledb.getConnection();
 
