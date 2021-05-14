@@ -13,6 +13,11 @@ const findUser = async (req, res) => {
             "status": "fail",
             "message": "Cliente não existe",
         });
+    } else if (!resultado[0].HTML_FORM) {
+        return res.status(404).json({
+            "status": "fail",
+            "message": "formulario não existe"
+        })
     } else {
         return res.json(resultado);
     }
