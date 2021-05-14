@@ -2,7 +2,7 @@ const oracledb = require('oracledb');
 const conn = require('./connDAO');
 
 // Usuario filtrado pelo NR_ATENDIMENTO
-async function dadosUsuario(nr_atendimento) {
+async function dadosUsuario(nr_atendimento, nr_sequencia) {
 
     oracledb.fetchAsString = [oracledb.CLOB]
 
@@ -18,7 +18,7 @@ async function dadosUsuario(nr_atendimento) {
     replace(
     replace(
     replace(
-    replace((select html_termo from SAMEL.termos_padroes where nr_sequencia = 1)
+    replace((select html_termo from SAMEL.termos_padroes where nr_sequencia = ${nr_sequencia})
             , '@nm_paciente', tasy.obter_nome_pf(b.cd_pessoa_fisica))
             ,'@cpf_paciente', tasy.obter_cpf_pessoa_fisica(b.cd_pessoa_fisica))
             ,'@cd_pessoa_fisica', (select cd_pessoa_fisica from atendimento_paciente

@@ -5,9 +5,9 @@ const {
 
 
 const findUser = async (req, res) => {
-    const { nr_atendimento } = req.params;
+    const { nr_atendimento, nr_sequencia } = req.query;
 
-    const resultado = await dadosUsuario(nr_atendimento);
+    const resultado = await dadosUsuario(nr_atendimento, nr_sequencia);
     if (!resultado) {
         return res.status(404).json({
             "status": "fail",
@@ -25,10 +25,12 @@ const insertTerm = async (req, res) => {
         termo_image
     } = req.query;
 
-    if(!nr_atendimento || !nr_seq_termo_padrao || !termo_image) { return res.status(400).json({
-        "status": "fail",
-        "message": "faltam dados"
-    }) }
+    if (!nr_atendimento || !nr_seq_termo_padrao || !termo_image) {
+        return res.status(400).json({
+            "status": "fail",
+            "message": "faltam dados"
+        })
+    }
 
     const resultado = await inserirTermoAssinado(nr_atendimento, nr_seq_termo_padrao, termo_image);
 
