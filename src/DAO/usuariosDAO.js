@@ -14,18 +14,28 @@ async function dadosUsuario(nr_atendimento) {
     replace(
     replace(
     replace(
-    replace(html_termo, '@nm_paciente', tasy.obter_nome_pf(b.cd_pessoa_fisica))
+    replace(
+    replace(
+    replace(
+    replace(
+    replace(html_termo
+            , '@nm_paciente', tasy.obter_nome_pf(b.cd_pessoa_fisica))
             ,'@cpf_paciente', tasy.obter_cpf_pessoa_fisica(b.cd_pessoa_fisica))
-            ,'@an_paciente', (select dt_nascimento from atendimento_paciente join pessoa_fisica
-                    on atendimento_paciente.cd_pessoa_fisica = pessoa_fisica.cd_pessoa_fisica
-                    where nr_atendimento = ${nr_atendimento}))
+            ,'@cd_pessoa_fisica', (select cd_pessoa_fisica from atendimento_paciente
+                where nr_atendimento = ${nr_atendimento}))
+            ,'@data_entrada_uti', (select dt_entrada from atendimento_paciente
+                where nr_atendimento = ${nr_atendimento}))
+            ,'@ie_tipo_convenio', (select ie_tipo_convenio from atendimento_paciente
+                where nr_atendimento = ${nr_atendimento}))
             ,'@data_atual', CURRENT_DATE)
+            ,'@hora_atual', (SELECT TO_CHAR(SYSDATE, 'HH24') AS CURRENT_HOUR FROM DUAL))
+            ,'@minuto_atual', (SELECT TO_CHAR(SYSDATE, 'MI') AS CURRENT_MINUTE FROM DUAL))
             ,'\n', '')
-            ,'\r', '')
             ,'\t', '')
+            ,'\r', '')
             
-                    
-                    
+            
+                      
 as html_ser_montado from SAMEL.termos_padroes a
 join atendimento_paciente b on 1 = 1
 where nr_atendimento = ${nr_atendimento}
