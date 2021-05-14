@@ -36,7 +36,7 @@ async function dadosUsuario(nr_atendimento) {
             
             
                       
-as html_ser_montado from SAMEL.termos_padroes a
+as html_formulario from SAMEL.termos_padroes a
 join atendimento_paciente b on 1 = 1
 where nr_atendimento = ${nr_atendimento}
     `; // Nao colocar > ; < no final da query
