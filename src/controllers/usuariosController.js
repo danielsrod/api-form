@@ -45,7 +45,11 @@ const insertTerm = async (req, res) => {
             "message": "Falha ao inserir dados preenchidos"
         });
     } else {
-        return res.json(resultado)
+        return res.json({
+            "resultado": resultado,
+            "status": "success",
+            "message": "enviado com sucesso"
+        })
     }
 
 }
