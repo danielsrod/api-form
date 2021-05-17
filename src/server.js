@@ -22,7 +22,7 @@ app.all('/*', (req, res) => {
 })
 
 const PORT = process.env.PORT || 3333;
-const HOST = process.env.HOST || '0.0.0.0';
+const HOST = process.env.HOST || 'localhost';
 app.listen(PORT, HOST, () => {
     console.info(`App rodando em http://${HOST}:${PORT}`);
 });
