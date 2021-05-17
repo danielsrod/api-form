@@ -11,6 +11,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => {
+    console.log('home');
     res.json({ message: "home" });
 })
 
@@ -22,7 +23,7 @@ app.all('/*', (req, res) => {
 })
 
 const PORT = process.env.PORT || 3333;
-const HOST = process.env.HOST || 'localhost';
+const HOST = process.env.HOST || '0.0.0.0';
 app.listen(PORT, HOST, () => {
     console.info(`App rodando em http://${HOST}:${PORT}`);
 });

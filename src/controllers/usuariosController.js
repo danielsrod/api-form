@@ -7,13 +7,13 @@ const {
 const findUser = async (req, res) => {
     const { nr_atendimento, nr_sequencia } = req.query;
 
-    const resultado = await dadosUsuario(nr_atendimento, nr_sequencia);
+    const resultado = await dadosUsuario(nr_atendimento);
     if (!resultado) {
         return res.status(404).json({
             "status": "fail",
             "message": "Cliente não existe",
         });
-    } else if (!resultado[0].HTML_FORM) {
+    } else if (!resultado) {
         return res.status(404).json({
             "status": "fail",
             "message": "formulario não existe"
