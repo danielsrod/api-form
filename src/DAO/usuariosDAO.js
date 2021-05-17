@@ -7,7 +7,7 @@ async function dadosUsuario(nr_atendimento, nr_sequencia) {
     oracledb.fetchAsString = [oracledb.CLOB]
 
     const sql = `
-    select
+select
     replace(
     replace(
     replace(
@@ -37,7 +37,7 @@ async function dadosUsuario(nr_atendimento, nr_sequencia) {
 as html_form from SAMEL.termos_padroes a
 join atendimento_paciente b on 1 = 1
 where nr_atendimento = ${nr_atendimento}
-    `; // Nao colocar > ; < no final da query
+    `; // Nao colocar  ';' no final da query
 
     const db = await oracledb.getConnection();
 
