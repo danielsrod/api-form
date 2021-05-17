@@ -40,7 +40,7 @@ async function dadosUsuario(nr_atendimento) {
 //     `;
 
 const sql = `
-select nm_pessoa_fisica, dt_nascimento, ie_sexo, nr_cpf, dt_alta, ie_tipo_convenio  from pessoa_fisica a
+select nm_pessoa_fisica, dt_nascimento, ie_sexo, nr_cpf, dt_entrada, ie_tipo_convenio  from pessoa_fisica a
 inner join atendimento_paciente b on b.cd_pessoa_fisica = a.cd_pessoa_fisica
 where nr_atendimento = ${nr_atendimento}
 `
