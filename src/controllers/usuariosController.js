@@ -1,13 +1,14 @@
 const {
     dadosUsuario,
-    inserirTermoAssinado
+    inserirTermoAssinado,
+    validarNr
 } = require('../DAO/usuariosDAO');
 
 
 const findUser = async (req, res) => {
     const { nr_atendimento, nr_sequencia } = req.query;
 
-    const resultado = await dadosUsuario(nr_atendimento);
+    const resultado = await dadosUsuario(nr_atendimento, nr_sequencia);
     if (!resultado) {
         return res.status(404).json({
             "status": "fail",
@@ -17,6 +18,21 @@ const findUser = async (req, res) => {
         return res.status(404).json({
             "status": "fail",
             "message": "formulario não existe"
+        })
+    } else {
+        return res.json(resultado);
+    }
+}
+
+const checkNr = async (req, res) => {
+    const { nr_atendimento } = req.params;
+
+    const resultado = await validarNr(nr_atendimento);
+
+    if(!resultado) {
+        return res.status(404).json({
+            "status": "fail",
+            "message": "nr_atendimento não existe"
         })
     } else {
         return res.json(resultado);
@@ -58,5 +74,6 @@ const insertTerm = async (req, res) => {
 module.exports = {
     findUser,
     insertTerm,
+    checkNr,
 
 };
