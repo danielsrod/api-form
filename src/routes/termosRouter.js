@@ -9,6 +9,6 @@ const router = Router();
 // Listar os termos padrões
 router.get('/', showTerms);
 
-router.get('/checkTerms', filledTerms);
+router.get('/checkTerms/:nr_atendimento', filledTerms);
 
 module.exports = router;
