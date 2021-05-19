@@ -1,7 +1,9 @@
 const {
     dadosUsuario,
     inserirTermoAssinado,
-    validarNr
+    validarNr,
+    validarNrForm,
+
 } = require('../DAO/usuariosDAO');
 
 
@@ -39,12 +41,27 @@ const checkNr = async (req, res) => {
     }
 }
 
+const checkNrForm = async (req, res) => {
+    const { nr_atendimento } = req.params;
+
+    const resultado = await validarNrForm(nr_atendimento);
+
+    if(!resultado) {
+        return res.status(404).json({
+            "status": "fail",
+            "message": "nr_atendimento ja foi utilizado"
+        });
+    } else {
+        return res.json({resultado});
+    }
+}
+
 const insertTerm = async (req, res) => {
     const {
         nr_atendimento,
         nr_seq_termo_padrao,
         termo_image
-    } = req.query;
+    } = req.body;
 
     if (!nr_atendimento || !nr_seq_termo_padrao || !termo_image) {
         return res.status(400).json({
@@ -75,5 +92,6 @@ module.exports = {
     findUser,
     insertTerm,
     checkNr,
+    checkNrForm,
 
 };

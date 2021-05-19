@@ -39,11 +39,11 @@ join atendimento_paciente b on 1 = 1
 where nr_atendimento = ${nr_atendimento}
     `;
 
-// const sql = `
-// select nm_pessoa_fisica, dt_nascimento, ie_sexo, nr_cpf, dt_entrada, ie_tipo_convenio  from pessoa_fisica a
-// inner join atendimento_paciente b on b.cd_pessoa_fisica = a.cd_pessoa_fisica
-// where nr_atendimento = ${nr_atendimento}
-// `
+    // const sql = `
+    // select nm_pessoa_fisica, dt_nascimento, ie_sexo, nr_cpf, dt_entrada, ie_tipo_convenio  from pessoa_fisica a
+    // inner join atendimento_paciente b on b.cd_pessoa_fisica = a.cd_pessoa_fisica
+    // where nr_atendimento = ${nr_atendimento}
+    // `
 
     const db = await oracledb.getConnection();
 
@@ -60,7 +60,7 @@ where nr_atendimento = ${nr_atendimento}
         .finally(() => db.close());
 }
 
-async function validarNr (nr_atendimento) {
+async function validarNr(nr_atendimento) {
     const sql = `
     select * from atendimento_paciente
     where nr_atendimento = ${nr_atendimento}
@@ -79,6 +79,27 @@ async function validarNr (nr_atendimento) {
         })
         .finally(() => db.close());
 }
+
+async function validarNrForm(nr_atendimento) {
+    const sql = `
+    select * from samel.termos_atendimentos
+    where nr_atendimento = ${nr_atendimento}
+    `;
+
+    const db = await oracledb.getConnection();
+
+    return await db.execute(sql)
+        .then(result => {
+            console.log(result);
+            return result.rows;
+        })
+        .catch(err => {
+            console.log('Erro na consulta', err);
+            return null;
+        })
+        .finally(() => db.close());
+}
+
 
 // Inserir formulario preenchido atrelado ao nr_atendimento
 async function inserirTermoAssinado(nr_atendimento, nr_seq_termo_padrao, termo_image) {
@@ -122,6 +143,7 @@ async function inserirTermoAssinado(nr_atendimento, nr_seq_termo_padrao, termo_i
 module.exports = {
     dadosUsuario,
     inserirTermoAssinado,
-    validarNr
+    validarNr,
+    validarNrForm
 
 };
