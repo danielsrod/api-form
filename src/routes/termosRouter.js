@@ -1,9 +1,14 @@
 const { Router } = require('express');
+const {
+    showTerms,
+    filledTerms,
+
+} = require('../controllers/termosController');
 const router = Router();
-const showTerms = require('../controllers/termosController');
 
 // Listar os termos padrões
 router.get('/', showTerms);
 
-module.exports = router;
+router.get('/checkTerms', filledTerms);
 
+module.exports = router;

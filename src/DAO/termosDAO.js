@@ -24,4 +24,30 @@ async function termosPadroes() {
         .finally(() => db.close());
 }
 
-module.exports = termosPadroes;
+async function termosPreenchidos(nr_atendimento) {
+    let sql = `
+    select nr_seq_termo_padrao from samel.termos_atendimentos
+    where nr_atendimento = ${nr_atendimento}
+    `;
+
+    const db = await oracledb.getConnection();
+
+    return await db.execute(sql)
+        .then(result => {
+            console.log(result.rows);
+            return result.rows;
+        })
+        .catch(err => {
+            console.log('Erro na consulta', err);
+            return null;
+        })
+        .finally(() => db.close());
+
+
+}
+
+module.exports = {
+    termosPadroes,
+    termosPreenchidos,
+
+};

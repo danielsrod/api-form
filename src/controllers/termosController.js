@@ -1,4 +1,8 @@
-const termosPadroes = require('../DAO/termosDAO');
+const {
+    termosPadroes,
+    termosPreenchidos,
+
+} = require('../DAO/termosDAO');
 
 
 const showTerms = async (req, res) => {
@@ -14,5 +18,26 @@ const showTerms = async (req, res) => {
     }
 }
 
+const filledTerms = async (req, res) => {
+    const { nr_atendimento } = req.params;
 
-module.exports = showTerms;
+    const resultado = await termosPreenchidos(nr_atendimento);
+
+    if(!resultado) {
+        return res.status(404).json({
+            "status": "fail",
+            "message": "nr_atendimento não existe"
+        });
+    } else {
+        return res.json(resultado);
+    }
+
+
+}
+
+
+module.exports = {
+    showTerms,
+    filledTerms,
+
+};

@@ -13,6 +13,7 @@ const router = Router();
 router.get('/', findUser);
 
 router.get('/check/:nr_atendimento', checkNr)
+
 router.get('/checkForm/:nr_atendimento', checkNrForm);
 
 // Inserir a imagem em base64 no bd da oracle
