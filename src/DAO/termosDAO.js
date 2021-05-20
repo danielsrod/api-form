@@ -14,7 +14,7 @@ async function termosPadroes() {
 
     return await db.execute(sql)
         .then(result => {
-            console.log(result.rows);
+            console.log('termos_padroes');
             return result.rows;
         })
         .catch(err => {
@@ -34,7 +34,7 @@ async function termosPreenchidos(nr_atendimento) {
 
     return await db.execute(sql)
         .then(result => {
-            console.log(result.rows);
+            console.log('id dos termos');
             return result.rows;
         })
         .catch(err => {
