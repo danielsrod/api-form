@@ -1,9 +1,9 @@
 const {
+
     termosPadroes,
     termosPreenchidos,
 
 } = require('../DAO/termosDAO');
-
 
 const showTerms = async (req, res) => {
     const resultado = await termosPadroes();
@@ -31,12 +31,10 @@ const filledTerms = async (req, res) => {
     } else {
         return res.json(resultado);
     }
-
-
 }
 
-
 module.exports = {
+
     showTerms,
     filledTerms,
 

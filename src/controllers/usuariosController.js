@@ -84,11 +84,10 @@ const insertTerm = async (req, res) => {
             "message": "enviado com sucesso"
         })
     }
-
 }
 
-
 module.exports = {
+
     findUser,
     insertTerm,
     checkNr,

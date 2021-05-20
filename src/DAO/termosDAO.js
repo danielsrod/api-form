@@ -1,11 +1,11 @@
 const oracledb = require('oracledb');
 const conn = require('./connDAO');
 
-
 async function termosPadroes() {
     oracledb.fetchAsString = [oracledb.CLOB]
 
-    let sql = `
+    let sql =
+    `
     SELECT nr_sequencia, ds_termo, titulo, html_termo
     FROM SAMEL.termos_padroes
     `;
@@ -42,11 +42,10 @@ async function termosPreenchidos(nr_atendimento) {
             return null;
         })
         .finally(() => db.close());
-
-
 }
 
 module.exports = {
+
     termosPadroes,
     termosPreenchidos,
 
