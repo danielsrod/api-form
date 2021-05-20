@@ -50,7 +50,7 @@ where nr_atendimento = ${nr_atendimento}
     return await db.execute(sql)
         .then(result => {
             // console.log(typeof result.rows)
-            console.log(result.rows);
+            console.log('replaced');
             return result.rows;
         })
         .catch(err => {
@@ -70,7 +70,7 @@ async function validarNr(nr_atendimento) {
 
     return await db.execute(sql)
         .then(result => {
-            console.log(result);
+            console.log('nr_atendimento exists ?');
             return result.rows;
         })
         .catch(err => {
@@ -90,7 +90,7 @@ async function validarNrForm(nr_atendimento) {
 
     return await db.execute(sql)
         .then(result => {
-            console.log(result);
+            console.log('termo ja preenchido ?');
             return result.rows;
         })
         .catch(err => {
@@ -123,7 +123,7 @@ async function inserirTermoAssinado(nr_atendimento, nr_seq_termo_padrao, termo_i
         }
     )
         .then(result => {
-            console.log(result)
+            console.log('insert termo preenchido');
             return {
                 "status": "sucess",
                 "mensagem": "Formulario enviado com sucesso",
