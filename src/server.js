@@ -1,11 +1,12 @@
 'use strict';
 
 const express = require('express');
-const app = express();
 const morgan = require('morgan')
 const cors = require('cors');
 const usuariosRouter = require('./routes/usuariosRouter');
 const termosRouter = require('./routes/termosRouter');
+
+const app = express();
 
 app.use(cors());
 app.use(morgan('dev'));
