@@ -8,7 +8,6 @@ const {
 
 const router = Router();
 
-
 router.get('/', showTerms);
 
 router.get('/checkTerms/:nr_atendimento', filledTerms);

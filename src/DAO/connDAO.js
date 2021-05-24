@@ -15,7 +15,7 @@ const connConfig = {
     autoCommit: true,
     poolTimeout: 360,
     queueTimeout: 2020000,
-}
+};
 
 async function getConn() {
     try {
@@ -32,6 +32,6 @@ async function getConn() {
         console.log(err, 'getConn', 'Erro ao conectar');
         return undefined;
     }
-}
+};
 
 module.exports = getConn();

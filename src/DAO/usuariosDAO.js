@@ -50,7 +50,7 @@ async function dadosUsuario(nr_atendimento, nr_sequencia) {
             return null;
         })
         .finally(() => db.close());
-}
+};
 
 async function validarNr(nr_atendimento) {
     const sql = `
@@ -70,7 +70,7 @@ async function validarNr(nr_atendimento) {
             return null;
         })
         .finally(() => db.close());
-}
+};
 
 async function validarNrForm(nr_atendimento) {
     const sql = `
@@ -90,7 +90,7 @@ async function validarNrForm(nr_atendimento) {
             return null;
         })
         .finally(() => db.close());
-}
+};
 
 async function inserirTermoAssinado(nr_atendimento, nr_seq_termo_padrao, termo_image) {
     const sql = `
@@ -128,7 +128,6 @@ async function inserirTermoAssinado(nr_atendimento, nr_seq_termo_padrao, termo_i
         })
         .finally(() => db.close());
 };
-
 
 module.exports = {
 

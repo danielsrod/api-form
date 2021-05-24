@@ -1,4 +1,5 @@
 const {
+
     dadosUsuario,
     inserirTermoAssinado,
     validarNr,
@@ -24,7 +25,7 @@ const findUser = async (req, res) => {
     } else {
         return res.json(resultado);
     }
-}
+};
 
 const checkNr = async (req, res) => {
     const { nr_atendimento } = req.params;
@@ -35,11 +36,11 @@ const checkNr = async (req, res) => {
         return res.status(404).json({
             "status": "fail",
             "message": "nr_atendimento não existe"
-        })
+        });
     } else {
         return res.json(resultado);
     }
-}
+};
 
 const checkNrForm = async (req, res) => {
     const { nr_atendimento } = req.params;
@@ -54,21 +55,23 @@ const checkNrForm = async (req, res) => {
     } else {
         return res.json({resultado});
     }
-}
+};
 
 const insertTerm = async (req, res) => {
     const {
+
         nr_atendimento,
         nr_seq_termo_padrao,
         termo_image
+
     } = req.body;
 
     if (!nr_atendimento || !nr_seq_termo_padrao || !termo_image) {
         return res.status(400).json({
             "status": "fail",
             "message": "faltam dados"
-        })
-    }
+        });
+    };
 
     const resultado = await inserirTermoAssinado(nr_atendimento, nr_seq_termo_padrao, termo_image);
 
@@ -82,9 +85,9 @@ const insertTerm = async (req, res) => {
             "resultado": resultado,
             "status": "success",
             "message": "enviado com sucesso"
-        })
+        });
     }
-}
+};
 
 module.exports = {
 

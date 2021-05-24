@@ -16,7 +16,7 @@ const showTerms = async (req, res) => {
     } else {
         return res.json(resultado);
     }
-}
+};
 
 const filledTerms = async (req, res) => {
     const { nr_atendimento } = req.params;
@@ -31,7 +31,7 @@ const filledTerms = async (req, res) => {
     } else {
         return res.json(resultado);
     }
-}
+};
 
 module.exports = {
 

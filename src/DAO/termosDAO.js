@@ -2,6 +2,7 @@ const oracledb = require('oracledb');
 const conn = require('./connDAO');
 
 async function termosPadroes() {
+
     oracledb.fetchAsString = [oracledb.CLOB]
 
     let sql =
@@ -22,7 +23,7 @@ async function termosPadroes() {
             return null;
         })
         .finally(() => db.close());
-}
+};
 
 async function termosPreenchidos(nr_atendimento) {
     let sql = `
@@ -42,7 +43,7 @@ async function termosPreenchidos(nr_atendimento) {
             return null;
         })
         .finally(() => db.close());
-}
+};
 
 module.exports = {
 
