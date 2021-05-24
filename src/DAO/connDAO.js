@@ -1,7 +1,6 @@
 const oracledb = require('oracledb');
-const dotenv = require('dotenv');
 
-dotenv.config();
+require('dotenv').config();
 
 oracledb.outFormat = oracledb.OUT_FORMAT_OBJECT;
 
