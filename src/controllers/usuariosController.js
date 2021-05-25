@@ -7,7 +7,7 @@ const {
 
 } = require('../DAO/usuariosDAO');
 
-
+// Função pra pegar o termo HTML preenchido com os dados do usuário
 const findUser = async (req, res) => {
     const { nr_atendimento, nr_sequencia } = req.query;
 
@@ -27,6 +27,7 @@ const findUser = async (req, res) => {
     }
 };
 
+// Função pra validar se o nr_atendimento existe
 const checkNr = async (req, res) => {
     const { nr_atendimento } = req.params;
 
@@ -42,6 +43,7 @@ const checkNr = async (req, res) => {
     }
 };
 
+// Função pra validar se o formulario já foi preenchido com algum nr_atendimento
 const checkNrForm = async (req, res) => {
     const { nr_atendimento } = req.params;
 
@@ -57,6 +59,7 @@ const checkNrForm = async (req, res) => {
     }
 };
 
+// Função pra inserir o termo preenchido no banco
 const insertTerm = async (req, res) => {
     const {
 

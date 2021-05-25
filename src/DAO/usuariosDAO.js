@@ -1,6 +1,7 @@
 const oracledb = require('oracledb');
 const conn = require('./connDAO');
 
+// Função para preencher o formulario dando replace nas macros
 async function dadosUsuario(nr_atendimento, nr_sequencia) {
 
     oracledb.fetchAsString = [oracledb.CLOB]
@@ -56,6 +57,7 @@ async function dadosUsuario(nr_atendimento, nr_sequencia) {
         .finally(() => db.close());
 };
 
+// Função de consulta no banco pra validar o nr_atendimento
 async function validarNr(nr_atendimento) {
     const sql = `
         select * from atendimento_paciente
@@ -76,6 +78,7 @@ async function validarNr(nr_atendimento) {
         .finally(() => db.close());
 };
 
+// Função de consulta no banco pra validar se o formulário já foi preenchido com algum nr_atendimento
 async function validarNrForm(nr_atendimento) {
     const sql = `
         select * from samel.termos_atendimentos
@@ -96,6 +99,7 @@ async function validarNrForm(nr_atendimento) {
         .finally(() => db.close());
 };
 
+// Função de consulta para inserir o termo preenchido no banco
 async function inserirTermoAssinado(nr_atendimento, nr_seq_termo_padrao, termo_image) {
     const sql = `
         INSERT INTO SAMEL.termos_atendimentos

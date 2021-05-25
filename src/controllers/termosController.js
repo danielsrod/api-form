@@ -5,6 +5,7 @@ const {
 
 } = require('../DAO/termosDAO');
 
+// Função pra listar os termos
 const showTerms = async (req, res) => {
     const resultado = await termosPadroes();
 
@@ -18,6 +19,7 @@ const showTerms = async (req, res) => {
     }
 };
 
+// Função pra saber os termos já preenchidos
 const filledTerms = async (req, res) => {
     const { nr_atendimento } = req.params;
 

@@ -1,6 +1,7 @@
 const oracledb = require('oracledb');
 const conn = require('./connDAO');
 
+// Query pra consulta dos termos no banco
 async function termosPadroes() {
 
     oracledb.fetchAsString = [oracledb.CLOB]
@@ -25,6 +26,7 @@ async function termosPadroes() {
         .finally(() => db.close());
 };
 
+// Query para consulta dos termos preenchidos
 async function termosPreenchidos(nr_atendimento) {
     let sql = `
     select nr_seq_termo_padrao from samel.termos_atendimentos

@@ -8,8 +8,10 @@ const {
 
 const router = Router();
 
+// Listar termos
 router.get('/', showTerms);
 
+// Termos já preenchidos pelo usuário
 router.get('/checkTerms/:nr_atendimento', filledTerms);
 
 module.exports = router;
