@@ -17,6 +17,7 @@ async function dadosUsuario(nr_atendimento, nr_sequencia) {
             replace(
             replace(
             replace(
+            replace(
             replace((select html_termo from SAMEL.termos_padroes where nr_sequencia = ${nr_sequencia})
                     , '@nm_paciente', tasy.obter_nome_pf(b.cd_pessoa_fisica))
                     ,'@cpf_paciente', tasy.obter_cpf_pessoa_fisica(b.cd_pessoa_fisica))
@@ -29,6 +30,7 @@ async function dadosUsuario(nr_atendimento, nr_sequencia) {
                     ,'@data_atual', CURRENT_DATE)
                     ,'@hora_atual', (SELECT TO_CHAR(SYSDATE, 'HH24') AS CURRENT_HOUR FROM DUAL))
                     ,'@minuto_atual', (SELECT TO_CHAR(SYSDATE, 'MI') AS CURRENT_MINUTE FROM DUAL))
+                    ,'@idade_pf', tasy.obter_dados_pf(b.cd_pessoa_fisica, 'I'))
                     ,'\n', '')
                     ,'\t', '')
                     ,'\r', '')
