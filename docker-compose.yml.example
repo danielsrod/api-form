@@ -1,0 +1,12 @@
+version: '3'
+services:
+    api-formulario:
+        container_name: api-formulario
+        restart: always
+        image: 'danielsrod/oracle:teste'
+        working_dir: "/app"
+        ports:
+             - 8103:3333
+        volumes:
+            - "./:/app-backend"
+        tty: true
