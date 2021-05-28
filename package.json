@@ -18,10 +18,10 @@
   },
   "scripts": {
     "start": "node ./src/server.js",
-    "dev": "env NODE_ENV=development nodemon ./src/server.js",
+    "dev": "NODE_ENV=development nodemon ./src/server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "pm2": "pm2 start ./src/server.js",
-    "build": "env NODE_ENV=production node ./src/server.js"
+    "build": "NODE_ENV=production node ./src/server.js"
   },
   "keywords": [],
   "author": "",
