@@ -11,21 +11,24 @@ const {
 const findUser = async (req, res) => {
     const { nr_atendimento, nr_sequencia } = req.query;
 
-    if (!nr_atendimento || !nr_sequencia) {
-        return res.status(400).send({
-            "status": "fail",
-            "message": "Falta de parametros",
-        })
-    }
+    try {
 
-    const resultado = await dadosUsuario(nr_atendimento, nr_sequencia);
-    if (!resultado) {
-        return res.status(404).json({
+
+        const resultado = await dadosUsuario(nr_atendimento, nr_sequencia);
+        if (!resultado) {
+            return res.status(404).json({
+                "status": "fail",
+                "message": "Cliente ou Formulário não existe",
+            });
+        } else {
+            return res.json(resultado);
+        }
+    } catch (err) {
+        return res.status(400).json({
             "status": "fail",
-            "message": "Cliente ou Formulário não existe",
-        });
-    } else {
-        return res.json(resultado);
+            "message": "Ocorreu um erro ao tentar encontrar o usuario",
+            "error message": err
+        })
     }
 };
 
@@ -33,22 +36,25 @@ const findUser = async (req, res) => {
 const checkNr = async (req, res) => {
     const { nr_atendimento } = req.params;
 
-    if (!nr_atendimento) {
-        return res.status(400).send({
+    try {
+
+
+        const resultado = await validarNr(nr_atendimento);
+
+        if (!resultado) {
+            return res.status(404).json({
+                "status": "fail",
+                "message": "nr_atendimento não existe"
+            });
+        } else {
+            return res.json(resultado);
+        }
+    } catch (err) {
+        return res.status(400).json({
             "status": "fail",
-            "message": "NR Atendimento não informado",
+            "message": "Ocorreu um erro ao tentar validar o nr_atendimento",
+            "error message": err
         })
-    }
-
-    const resultado = await validarNr(nr_atendimento);
-
-    if(!resultado) {
-        return res.status(404).json({
-            "status": "fail",
-            "message": "nr_atendimento não existe"
-        });
-    } else {
-        return res.json(resultado);
     }
 };
 
@@ -56,22 +62,25 @@ const checkNr = async (req, res) => {
 const checkNrForm = async (req, res) => {
     const { nr_atendimento } = req.params;
 
-    if (!nr_atendimento) {
-        return res.status(400).send({
+    try {
+
+
+        const resultado = await validarNrForm(nr_atendimento);
+
+        if (!resultado) {
+            return res.status(404).json({
+                "status": "fail",
+                "message": "nr_atendimento ja foi utilizado"
+            });
+        } else {
+            return res.json({ resultado });
+        }
+    } catch (err) {
+        return res.status(400).json({
             "status": "fail",
-            "message": "NR Atendimento não informado",
+            "message": "Ocorreu um erro ao tentar validar os formularios ja preenchidos",
+            "error message": err
         })
-    }
-
-    const resultado = await validarNrForm(nr_atendimento);
-
-    if(!resultado) {
-        return res.status(404).json({
-            "status": "fail",
-            "message": "nr_atendimento ja foi utilizado"
-        });
-    } else {
-        return res.json({resultado});
     }
 };
 
@@ -92,19 +101,27 @@ const insertTerm = async (req, res) => {
         });
     };
 
-    const resultado = await inserirTermoAssinado(nr_atendimento, nr_seq_termo_padrao, termo_image);
+    try {
+        const resultado = await inserirTermoAssinado(nr_atendimento, nr_seq_termo_padrao, termo_image);
 
-    if (!resultado) {
+        if (!resultado) {
+            return res.status(400).json({
+                "status": "fail",
+                "message": "Falha ao inserir dados preenchidos"
+            });
+        } else {
+            return res.json({
+                "resultado": resultado,
+                "status": "success",
+                "message": "enviado com sucesso"
+            });
+        }
+    } catch (err) {
         return res.status(400).json({
             "status": "fail",
-            "message": "Falha ao inserir dados preenchidos"
-        });
-    } else {
-        return res.json({
-            "resultado": resultado,
-            "status": "success",
-            "message": "enviado com sucesso"
-        });
+            "message": "Ocorreu um erro ao tentar inserir o termo preenchido",
+            "error message": err
+        })
     }
 };
 
