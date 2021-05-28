@@ -11,17 +11,19 @@ const {
 const findUser = async (req, res) => {
     const { nr_atendimento, nr_sequencia } = req.query;
 
+    if (!nr_atendimento || !nr_sequencia) {
+        return res.status(400).send({
+            "status": "fail",
+            "message": "Falta de parametros",
+        })
+    }
+
     const resultado = await dadosUsuario(nr_atendimento, nr_sequencia);
     if (!resultado) {
         return res.status(404).json({
             "status": "fail",
-            "message": "Cliente não existe",
+            "message": "Cliente ou Formulário não existe",
         });
-    } else if (!resultado) {
-        return res.status(404).json({
-            "status": "fail",
-            "message": "formulario não existe"
-        })
     } else {
         return res.json(resultado);
     }
@@ -30,6 +32,13 @@ const findUser = async (req, res) => {
 // Função pra validar se o nr_atendimento existe
 const checkNr = async (req, res) => {
     const { nr_atendimento } = req.params;
+
+    if (!nr_atendimento) {
+        return res.status(400).send({
+            "status": "fail",
+            "message": "NR Atendimento não informado",
+        })
+    }
 
     const resultado = await validarNr(nr_atendimento);
 
@@ -46,6 +55,13 @@ const checkNr = async (req, res) => {
 // Função pra validar se o formulario já foi preenchido com algum nr_atendimento
 const checkNrForm = async (req, res) => {
     const { nr_atendimento } = req.params;
+
+    if (!nr_atendimento) {
+        return res.status(400).send({
+            "status": "fail",
+            "message": "NR Atendimento não informado",
+        })
+    }
 
     const resultado = await validarNrForm(nr_atendimento);
 

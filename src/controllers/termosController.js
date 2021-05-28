@@ -23,6 +23,13 @@ const showTerms = async (req, res) => {
 const filledTerms = async (req, res) => {
     const { nr_atendimento } = req.params;
 
+    if (!nr_atendimento) {
+        return res.status(400).json({
+            "status": "fail",
+            "message": "NR Atendimento não informado"
+        })
+    }
+
     const resultado = await termosPreenchidos(nr_atendimento);
 
     if(!resultado) {
