@@ -19,7 +19,11 @@ app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 
 app.get('/', (req, res) => {
     res.json({ message: "home" });
-})
+});
+
+app.get('/favicon.ico', (req, res) => {
+    res.status(204);
+});
 
 app.use('/api/usuarios', usuariosRouter);
 app.use('/api/termos', termosRouter);
