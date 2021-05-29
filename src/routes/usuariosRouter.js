@@ -15,10 +15,10 @@ const router = Router();
 router.get('/', findUser);
 
 // Rota para validar se o nr_atendimento existe
-router.get('/check/:nr_atendimento', checkNr)
+router.get('/check', checkNr)
 
 // Rota pra validar os formularios ja preenchidos pelo nr_atendimento
-router.get('/checkForm/:nr_atendimento', checkNrForm);
+router.get('/checkForm', checkNrForm);
 
 // Rota para enviar o termo preenchido atrelado ao nr_atendimento
 router.post('/enviar', insertTerm);

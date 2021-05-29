@@ -25,8 +25,11 @@ app.use('/api/usuarios', usuariosRouter);
 app.use('/api/termos', termosRouter);
 
 app.all('/*', (req, res) => {
-    res.sendStatus(404);
-})
+    res.status(404).json({
+        "status": "fail",
+        "err message": "rota inexistente"
+    });
+});
 
 const PORT = process.env.PORT || 3333;
 const HOST = process.env.HOST || '0.0.0.0';
