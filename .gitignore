@@ -80,3 +80,7 @@ typings/
 Dockerfile
 .dockerignore
 docker-compose.yml
+
+# Lock
+package-lock.json
+yarn.lock
